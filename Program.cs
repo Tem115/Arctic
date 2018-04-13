@@ -11,20 +11,17 @@ namespace binary
         public static int BinarySearch(int[] array, int value)
         {
             if (array.Length == 0) return -1;
-            for (int i = 0; i < array.Length; i++)
-            { array[i] = Math.Abs(array[i]); }
-            value = Math.Abs(value);
             var left = 0;
             var right = array.Length - 1;
             while (left < right)
             {
                 var middle = (right + left) / 2;
-                if (value >= array[middle])
+                if (value <= array[middle])
                     right = middle;
                 else left = middle + 1;
             }
-            if (array[left] == value)
-                return left;
+            if (array[right] == value)
+                return right;
             return -1;
         }
 
@@ -43,9 +40,8 @@ namespace binary
         {
             int[] numbers= new int[100001];
             for (int i = 0; i < 100001; i++)
-                numbers[i] = 5;
-            numbers[0] = 6;
-            if (BinarySearch(numbers, 6) == 0)
+                numbers[i] = i;
+            if (BinarySearch(numbers, 6) == 6)
                 Console.WriteLine("Поиск  массиве из 100001 элементов работает корректно");
             else
                 Console.WriteLine("Поиск не нашел числа 6 в массиве из 100001 элемента");
@@ -62,7 +58,7 @@ namespace binary
 
         private static void TestRepetition()
         {
-            int[] numbers = new[] { 5, 4, 3, 3, 2};
+            int[] numbers = new[] { 1, 2, 3, 3, 5};
             if (BinarySearch(numbers, 3) != 2)
                 Console.WriteLine("! Поиск не нашёл число 3 среди чисел {5, 4, 3, 3, 2}");
             else
@@ -71,7 +67,7 @@ namespace binary
 
         private static void TestArray()
         {
-            int[] positiveNumbers = new[] { 5, 4, 3, 2, 1};
+            int[] positiveNumbers = new[] { 1, 2, 3, 4, 5};
             if (BinarySearch(positiveNumbers, 3) != 2)
                 Console.WriteLine("! Поиск не нашёл число 3 среди чисел {5, 4, 3, 2, 1}");
             else
@@ -95,7 +91,7 @@ namespace binary
             if (BinarySearch(negativeNumbers, -1) >= 0)
                 Console.WriteLine("! Поиск нашёл число -1 среди чисел {-5, -4, -3, -2}");
             else
-                Console.WriteLine("Поиск отсутствующего элемента вернул корректный результат работает корректно");
+                Console.WriteLine("Поиск отсутствующего элемента вернул корректный результат");
         }
     }
 }
